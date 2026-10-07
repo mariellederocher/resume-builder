@@ -1,3 +1,4 @@
+import { deletePiece } from "../../services/api";
 import { ResumePiece } from "../../types/ResumePiece";
 
 interface Props {
@@ -9,6 +10,10 @@ export default function ResumePieceCard({ piece }: Props) {
         e.dataTransfer.setData("application/json", JSON.stringify(piece));
     }
 
+    function handleDeleteClick() {
+        deletePiece(piece.id)
+    }
+
     return (
         <div
             className="draggable-piece"
@@ -16,7 +21,11 @@ export default function ResumePieceCard({ piece }: Props) {
             onDragStart={handleDragStart}
         >
             <h3>{piece.title}</h3>
+            <p>ID = {piece.id}</p>
             <p>{piece.content}</p>
+            <p>Type = {piece.type}</p>
+            <p>Tags = {piece.tags}</p>
+            <button onClick={() => handleDeleteClick}>DELETE</button>
         </div>
     );
 }

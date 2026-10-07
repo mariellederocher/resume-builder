@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useResumeStore } from "../store/useResumeStore";
-import { fetchPieces, createPiece } from "../services/api";
+import { fetchPieces, createPiece, deletePiece } from "../services/api";
 
 export default function addResumePiecePage() {
   const pieces = useResumeStore((s) => s.pieces);
   const setPieces = useResumeStore((s) => s.setPieces);
   const addPiece = useResumeStore((s) => s.createPiece);
+  const deletePiece = useResumeStore((s) => s.deletePiece);
 
   const [form, setForm] = useState<{
     id: number;

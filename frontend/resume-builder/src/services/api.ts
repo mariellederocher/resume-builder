@@ -26,4 +26,10 @@ export async function createPiece(payload) {
   return res.json();
 }
 
+export async function deletePiece(piece_id: Number) {
+  const res = await fetch("http://localhost:8000/piece/" + piece_id, {
+    method: "DELETE",
+  });
+}
+
 

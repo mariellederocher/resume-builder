@@ -23,7 +23,7 @@ Piece Maker Page at localhost:5173/piece
 * Persistent PostgreSQL databases for saved resumes and resume pieces that can be written to and read from via FastAPI endpoints. 
 
 ## Next Planned Features:
-* Tagging resumes pieces for different sections (Work Experience, Projects) and titles (Technical Artist @ Motusi.inc). 
+* Tagging resumes pieces for different sections (Work Experience, Projects) and titles (Technical Artist @ Motusi Inc). 
 * Saving the arranged resume pieces into properly formatted full resumes. 
 * Preview for formatted resumes.
 * Improved interface navigation and design.
