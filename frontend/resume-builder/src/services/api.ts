@@ -23,7 +23,11 @@ export async function createPiece(payload) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
-  return res.json();
+  if (res.ok ) {
+    return res.json();
+  }
+  return Promise.reject();
+  
 }
 
 export async function deletePiece(piece_id: Number) {

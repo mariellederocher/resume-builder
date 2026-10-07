@@ -1,4 +1,3 @@
-import { deletePiece } from "../../services/api";
 import { ResumePiece } from "../../types/ResumePiece";
 
 interface Props {
@@ -10,9 +9,6 @@ export default function ResumePieceCard({ piece }: Props) {
         e.dataTransfer.setData("application/json", JSON.stringify(piece));
     }
 
-    function handleDeleteClick() {
-        deletePiece(piece.id)
-    }
 
     return (
         <div
@@ -25,7 +21,6 @@ export default function ResumePieceCard({ piece }: Props) {
             <p>{piece.content}</p>
             <p>Type = {piece.type}</p>
             <p>Tags = {piece.tags}</p>
-            <button onClick={() => handleDeleteClick}>DELETE</button>
         </div>
     );
 }

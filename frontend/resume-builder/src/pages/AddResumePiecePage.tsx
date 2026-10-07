@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useResumeStore } from "../store/useResumeStore";
 import { fetchPieces, createPiece, deletePiece } from "../services/api";
+import { ResumePiece } from "../types/ResumePiece";
 
 export default function addResumePiecePage() {
   const pieces = useResumeStore((s) => s.pieces);
@@ -12,24 +13,32 @@ export default function addResumePiecePage() {
     id: number;
     title: string;
     content: string;
+    type: string;
   }>({
-    id: pieces.length,
+    id: 1,
     title: "",
     content: "",
+    type: "work",
   });
 
   useEffect(() => {
     fetchPieces().then(setPieces);
-}, []);
+    }, []);
+
+    function handleDeleteClick(piece: ResumePiece) {
+        deletePiece(piece);
+        fetchPieces().then(setPieces);
+    }
   
 
   function handleSubmit(e: { preventDefault: () => void; }) {
       e.preventDefault();
       createPiece(form).then((newPiece) => {
         addPiece(newPiece);
-        setForm({ id: pieces.length, title: "", content: "" });
-      });
-    }
+        setForm({ id: 1, title: "", content: "", type: "work" });
+      },
+    (error) => {});
+  }
 
   return (
     <div className="body">
@@ -39,7 +48,7 @@ export default function addResumePiecePage() {
             <input
                 placeholder="ID"
                 type="number"
-                value={pieces.length}
+                value={form.id}
                 onChange={(e) =>
                 setForm({ ...form, id: Number(e.target.value) })
                 }
@@ -58,6 +67,13 @@ export default function addResumePiecePage() {
                 setForm({ ...form, content: e.target.value })
                 }
             />
+            <input
+                placeholder="Type"
+                value={form.type}
+                onChange={(e) =>
+                setForm({ ...form, type: e.target.value })
+                }
+            />
 
             <div className="">
                 <button>Create Piece</button>
@@ -71,7 +87,8 @@ export default function addResumePiecePage() {
                 <ul>
                     {pieces.map((r) => (
                         <li key={r.id}>
-                            <strong>{r.title}</strong> — {r.content}
+                            <strong>{r.id} {r.title}</strong> — {r.content}
+                            <button onClick={() => handleDeleteClick}>DELETE</button>
                         </li>
                     ))}
                 </ul>
