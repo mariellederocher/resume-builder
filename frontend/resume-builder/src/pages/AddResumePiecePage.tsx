@@ -7,7 +7,7 @@ export default function addResumePiecePage() {
   const pieces = useResumeStore((s) => s.pieces);
   const setPieces = useResumeStore((s) => s.setPieces);
   const addPiece = useResumeStore((s) => s.createPiece);
-  const deletePiece = useResumeStore((s) => s.deletePiece);
+  const removePiece = useResumeStore((s) => s.removePiece);
 
   const [form, setForm] = useState<{
     id: number;
@@ -24,11 +24,6 @@ export default function addResumePiecePage() {
   useEffect(() => {
     fetchPieces().then(setPieces);
     }, []);
-
-    function handleDeleteClick(piece: ResumePiece) {
-        deletePiece(piece);
-        fetchPieces().then(setPieces);
-    }
   
 
   function handleSubmit(e: { preventDefault: () => void; }) {
@@ -39,6 +34,10 @@ export default function addResumePiecePage() {
       },
     (error) => {});
   }
+
+    function handleDeleteClick(piece_id: number) {
+        deletePiece(piece_id).then(() => fetchPieces().then(setPieces))
+    }
 
   return (
     <div className="body">
@@ -88,7 +87,7 @@ export default function addResumePiecePage() {
                     {pieces.map((r) => (
                         <li key={r.id}>
                             <strong>{r.id} {r.title}</strong> — {r.content}
-                            <button onClick={() => handleDeleteClick}>DELETE</button>
+                            <button onClick={() => handleDeleteClick(r.id)}>DELETE</button>
                         </li>
                     ))}
                 </ul>

@@ -31,9 +31,9 @@ export async function createPiece(payload) {
 }
 
 export async function deletePiece(piece_id: Number) {
-  const res = await fetch("http://localhost:8000/piece/" + piece_id, {
+  await fetch("http://localhost:8000/piece/" + piece_id, {
     method: "DELETE",
-  });
+  }).catch((e) => {console.error(e)});
 }
 
 

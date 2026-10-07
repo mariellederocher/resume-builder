@@ -11,7 +11,7 @@ interface ResumeStoreState {
   addResume: (resume: Resume) => void;
   setPieces: (pieces: ResumePiece[]) => void;
   createPiece: (piece: ResumePiece) => void;
-  deletePiece: (piece: ResumePiece) => void;
+  removePiece: (id: string | number) => void;
   addSelectedPiece: (piece: ResumePiece) => void;
   removeSelectedPiece: (id: string | number) => void;
 }
@@ -28,7 +28,7 @@ export const useResumeStore = create<ResumeStoreState>((set) => ({
     setPieces: (pieces) => set({ pieces }),
     createPiece: (piece) =>
         set((s) => ({ pieces: [...s.pieces, piece] })),
-    deletePiece: (id) =>
+    removePiece: (id) =>
         set((s) => ({
             selectedPieces: s.selectedPieces.filter((p) => String(p.id) !== String(id)),
         })),
